@@ -8,5 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/usuario")
 @CrossOrigin(value = "*", allowedHeaders = "*")
 public class UsuarioController {
+	
+	//Usuario vamos usar um service 
+	
 
 }
