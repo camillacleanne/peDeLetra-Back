@@ -2,15 +2,19 @@ package com.hackmhw.pedeletra.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "tb_usuario")
@@ -43,6 +47,8 @@ public class Usuario {
 	@Min (8)
 	private int telefone;
 
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("usuario")
 	private List<Crianca> crianca;
 	
 	public List<Crianca> getCrianca() {
@@ -99,7 +105,6 @@ public class Usuario {
 
 	public void setTelefone(int telefone) {
 		this.telefone = telefone;
-	}
-	
+	}	
 	
 }

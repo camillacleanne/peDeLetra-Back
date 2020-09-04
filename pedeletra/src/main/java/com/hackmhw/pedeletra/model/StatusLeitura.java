@@ -4,7 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "tb_status_leitura")
@@ -14,10 +17,13 @@ public class StatusLeitura {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
+	@ManyToOne
+	@JsonIgnoreProperties("statusleitura")
 	private Livro livro;
 	
 	private boolean leu;
 	
+	@ManyToOne
 	private Crianca crianca;
 
 	public long getId() {

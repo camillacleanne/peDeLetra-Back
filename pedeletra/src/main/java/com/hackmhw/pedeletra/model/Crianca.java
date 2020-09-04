@@ -2,15 +2,20 @@ package com.hackmhw.pedeletra.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "tb_crianca")
@@ -30,13 +35,18 @@ public class Crianca {
 	@Column (name = "cria_nick")
 	private String nick;
 	
+	@ManyToOne
 	private Parente parente;
 	
 	@Min (1)
 	private int idade;
 	
+	@ManyToOne
+	@JsonIgnoreProperties("crianca") // Para evitar recursividade Infinita por que crianca tem usuario e usuario tem uma lista de crianca
 	private Usuario usuario;
-
+	
+	@OneToMany(mappedBy = "crianca", cascade = CascadeType.ALL) //mapeando o objeto em leitura.
+	@JsonIgnoreProperties("crianca") //Assim como a linha 45 estamos evitadon recursividade
 	private List<StatusLeitura> leitura;
 	
 	public List<StatusLeitura> getLeitura() {

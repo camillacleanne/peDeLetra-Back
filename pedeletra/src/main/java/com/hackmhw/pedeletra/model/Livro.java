@@ -2,14 +2,18 @@ package com.hackmhw.pedeletra.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "tb_livro")
@@ -30,13 +34,17 @@ public class Livro {
 	@Min(1)
 	private int qtdPag;
 	
+	@Min(1)
 	private int minLeitura;
 	
 	@Min(1)
 	private int varMoeda;
 	
+	@Min(1)
 	private int faixaEtaria;
 
+	@OneToMany(mappedBy = "livro", cascade = CascadeType.ALL )
+	@JsonIgnoreProperties("livro")
 	private List<StatusLeitura> statusleitura;
 
 	public List<StatusLeitura> getStatusleitura() {
