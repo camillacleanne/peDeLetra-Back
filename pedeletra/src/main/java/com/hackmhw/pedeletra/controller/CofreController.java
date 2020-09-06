@@ -59,6 +59,5 @@ public class CofreController {
 		repository.deleteById(id);
 		return ResponseEntity.noContent().build(); 
 	}
-	
 
 }

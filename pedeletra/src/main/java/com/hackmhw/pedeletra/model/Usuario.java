@@ -15,6 +15,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.hackmhw.pedeletra.enums.ProfileEnum;
 
 @Entity
 @Table(name = "tb_usuario")
@@ -30,7 +31,6 @@ public class Usuario {
 	private String email;
 	
 	@NotNull
-	@Size(min = 4, max = 9)
 	@Column (name = "user_senha")
 	private String senha;
 	
@@ -45,11 +45,13 @@ public class Usuario {
 	private String sobrenome;
 	
 	@Min (8)
-	private int telefone;
+	private Long telefone;
 
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("usuario")
 	private List<Crianca> crianca;
+	
+	private ProfileEnum profile;
 	
 	public List<Crianca> getCrianca() {
 		return crianca;
@@ -99,12 +101,19 @@ public class Usuario {
 		this.sobrenome = sobrenome;
 	}
 
-	public int getTelefone() {
+	public Long getTelefone() {
 		return telefone;
 	}
 
-	public void setTelefone(int telefone) {
+	public void setTelefone(Long telefone) {
 		this.telefone = telefone;
+	}
+
+	public ProfileEnum getProfile() {
+		return profile;
+	}
+
+	public void setProfile(ProfileEnum profile) {
+		this.profile = profile;
 	}	
-	
 }
